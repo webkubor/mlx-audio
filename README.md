@@ -1,38 +1,38 @@
 # MLX-Audio
 
-The best audio processing library built on Apple's MLX framework, providing fast and efficient text-to-speech (TTS), speech-to-text (STT), and speech-to-speech (STS) on Apple Silicon.
+基于 Apple MLX 框架构建的最佳音频处理库，在 Apple Silicon 上提供快速高效的文本转语音（TTS）、语音转文本（STT）和语音转语音（STS）功能。
 
-## Features
+## 特性
 
-- Fast inference optimized for Apple Silicon (M series chips)
-- Multiple model architectures for TTS, STT, and STS
-- Multilingual support across models
-- Voice customization and cloning capabilities
-- Adjustable speech speed control
-- Interactive web interface with 3D audio visualization
-- OpenAI-compatible REST API
-- Quantization support (3-bit, 4-bit, 6-bit, 8-bit, and more) for optimized performance
-- Swift package for iOS/macOS integration
+- 针对 Apple Silicon（M 系列芯片）优化的快速推理
+- 支持 TTS、STT 和 STS 的多种模型架构
+- 跨模型的多语言支持
+- 语音定制和克隆功能
+- 可调节的语速控制
+- 带有 3D 音频可视化的交互式 Web 界面
+- 兼容 OpenAI 的 REST API
+- 支持量化（3 位、4 位、6 位、8 位及更多）以优化性能
+- 用于 iOS/macOS 集成的 Swift 包
 
-## Installation
+## 安装
 
-### Using pip
+### 使用 pip
 ```bash
 pip install mlx-audio
 ```
 
-### Using uv to install only the command line tools
-Latest release from pypi:
+### 使用 uv 仅安装命令行工具
+从 PyPI 安装最新版本：
 ```bash
 uv tool install --force mlx-audio --prerelease=allow
 ```
 
-Latest code from github:
+从 GitHub 安装最新代码：
 ```bash
 uv tool install --force git+https://github.com/Blaizzy/mlx-audio.git --prerelease=allow
 ```
 
-### For development or web interface:
+### 用于开发或 Web 界面：
 
 ```bash
 git clone https://github.com/Blaizzy/mlx-audio.git
@@ -40,22 +40,22 @@ cd mlx-audio
 pip install -e ".[dev]"
 ```
 
-## Quick Start
+## 快速开始
 
-### Command Line
+### 命令行
 
 ```bash
-# Basic TTS generation
-mlx_audio.tts.generate --model mlx-community/Kokoro-82M-bf16 --text 'Hello, world!' --lang_code a
+# 基本 TTS 生成
+mlx_audio.tts.generate --model mlx-community/Kokoro-82M-bf16 --text '你好，世界！' --lang_code a
 
-# With voice selection and speed adjustment
-mlx_audio.tts.generate --model mlx-community/Kokoro-82M-bf16 --text 'Hello!' --voice af_heart --speed 1.2 --lang_code a
+# 带语音选择和语速调整
+mlx_audio.tts.generate --model mlx-community/Kokoro-82M-bf16 --text '你好！' --voice af_heart --speed 1.2 --lang_code a
 
-# Play audio immediately
-mlx_audio.tts.generate --model mlx-community/Kokoro-82M-bf16 --text 'Hello!' --play  --lang_code a
+# 立即播放音频
+mlx_audio.tts.generate --model mlx-community/Kokoro-82M-bf16 --text '你好！' --play  --lang_code a
 
-# Save to a specific directory
-mlx_audio.tts.generate --model mlx-community/Kokoro-82M-bf16 --text 'Hello!' --output_path ./my_audio  --lang_code a
+# 保存到特定目录
+mlx_audio.tts.generate --model mlx-community/Kokoro-82M-bf16 --text '你好！' --output_path ./my_audio  --lang_code a
 ```
 
 ### Python API
@@ -63,96 +63,96 @@ mlx_audio.tts.generate --model mlx-community/Kokoro-82M-bf16 --text 'Hello!' --o
 ```python
 from mlx_audio.tts.utils import load_model
 
-# Load model
+# 加载模型
 model = load_model("mlx-community/Kokoro-82M-bf16")
 
-# Generate speech
-for result in model.generate("Hello from MLX-Audio!", voice="af_heart"):
-    print(f"Generated {result.audio.shape[0]} samples")
-    # result.audio contains the waveform as mx.array
+# 生成语音
+for result in model.generate("来自 MLX-Audio 的问候！", voice="af_heart"):
+    print(f"生成了 {result.audio.shape[0]} 个样本")
+    # result.audio 包含作为 mx.array 的波形
 ```
 
-## Supported Models
+## 支持的模型
 
-### Text-to-Speech (TTS)
+### 文本转语音（TTS）
 
-| Model | Description | Languages | Repo |
-|-------|-------------|-----------|------|
-| **Kokoro** | Fast, high-quality multilingual TTS | EN, JA, ZH, FR, ES, IT, PT, HI | [mlx-community/Kokoro-82M-bf16](https://huggingface.co/mlx-community/Kokoro-82M-bf16) |
-| **Qwen3-TTS** | Alibaba's multilingual TTS with voice design | ZH, EN, JA, KO, + more | [mlx-community/Qwen3-TTS-12Hz-1.7B-VoiceDesign-bf16](https://huggingface.co/mlx-community/Qwen3-TTS-12Hz-1.7B-VoiceDesign-bf16) |
-| **CSM** | Conversational Speech Model with voice cloning | EN | [mlx-community/csm-1b](https://huggingface.co/mlx-community/csm-1b) |
-| **Dia** | Dialogue-focused TTS | EN | [mlx-community/Dia-1.6B-bf16](https://huggingface.co/mlx-community/Dia-1.6B-bf16) |
-| **OuteTTS** | Efficient TTS model | EN | [mlx-community/OuteTTS-0.2-500M](https://huggingface.co/mlx-community/OuteTTS-0.2-500M) |
-| **Spark** | SparkTTS model | EN, ZH | [mlx-community/SparkTTS-0.5B-bf16](https://huggingface.co/mlx-community/SparkTTS-0.5B-bf16) |
-| **Chatterbox** | Expressive multilingual TTS | EN, ES, FR, DE, IT, PT, PL, TR, RU, NL, CS, AR, ZH, JA, HU, KO | [mlx-community/Chatterbox-bf16](https://huggingface.co/mlx-community/Chatterbox-bf16) |
-| **Soprano** | High-quality TTS | EN | [mlx-community/Soprano-bf16](https://huggingface.co/mlx-community/Soprano-bf16) |
+| 模型 | 描述 | 语言 | 仓库 |
+|------|------|------|------|
+| **Kokoro** | 快速、高质量的多语言 TTS | 英文、日文、中文、法文、西班牙文、意大利文、葡萄牙文、印地文 | [mlx-community/Kokoro-82M-bf16](https://huggingface.co/mlx-community/Kokoro-82M-bf16) |
+| **Qwen3-TTS** | 阿里巴巴的多语言 TTS，支持语音设计 | 中文、英文、日文、韩文等 | [mlx-community/Qwen3-TTS-12Hz-1.7B-VoiceDesign-bf16](https://huggingface.co/mlx-community/Qwen3-TTS-12Hz-1.7B-VoiceDesign-bf16) |
+| **CSM** | 具有语音克隆功能的会话语音模型 | 英文 | [mlx-community/csm-1b](https://huggingface.co/mlx-community/csm-1b) |
+| **Dia** | 专注于对话的 TTS | 英文 | [mlx-community/Dia-1.6B-bf16](https://huggingface.co/mlx-community/Dia-1.6B-bf16) |
+| **OuteTTS** | 高效的 TTS 模型 | 英文 | [mlx-community/OuteTTS-0.2-500M](https://huggingface.co/mlx-community/OuteTTS-0.2-500M) |
+| **Spark** | SparkTTS 模型 | 英文、中文 | [mlx-community/SparkTTS-0.5B-bf16](https://huggingface.co/mlx-community/SparkTTS-0.5B-bf16) |
+| **Chatterbox** | 富有表现力的多语言 TTS | 英文、西班牙文、法文、德文、意大利文、葡萄牙文、波兰文、土耳其文、俄文、荷兰文、捷克文、阿拉伯文、中文、日文、匈牙利文、韩文 | [mlx-community/Chatterbox-bf16](https://huggingface.co/mlx-community/Chatterbox-bf16) |
+| **Soprano** | 高质量 TTS | 英文 | [mlx-community/Soprano-bf16](https://huggingface.co/mlx-community/Soprano-bf16) |
 
-### Speech-to-Text (STT)
+### 语音转文本（STT）
 
-| Model | Description | Languages | Repo |
-|-------|-------------|-----------|------|
-| **Whisper** | OpenAI's robust STT model | 99+ languages | [mlx-community/whisper-large-v3-turbo-asr-fp16](https://huggingface.co/mlx-community/whisper-large-v3-turbo-asr-fp16) |
-| **Qwen3-ASR** | Alibaba's multilingual ASR | ZH, EN, JA, KO, + more | [mlx-community/Qwen3-ASR-1.7B-8bit](https://huggingface.co/mlx-community/Qwen3-ASR-1.7B-8bit) |
-| **Qwen3-ForcedAligner** | Word-level audio alignment | ZH, EN, JA, KO, + more | [mlx-community/Qwen3-ForcedAligner-0.6B-8bit](https://huggingface.co/mlx-community/Qwen3-ForcedAligner-0.6B-8bit) |
-| **Parakeet** | NVIDIA's accurate STT | EN | [mlx-community/parakeet-tdt-0.6b-v2](https://huggingface.co/mlx-community/parakeet-tdt-0.6b-v2) |
-| **Voxtral** | Mistral's speech model | Multiple | [mlx-community/Voxtral-Mini-3B-2507-bf16](https://huggingface.co/mlx-community/Voxtral-Mini-3B-2507-bf16) |
-| **VibeVoice-ASR** | Microsoft's 9B ASR with diarization & timestamps | Multiple | [mlx-community/VibeVoice-ASR-bf16](https://huggingface.co/mlx-community/VibeVoice-ASR-bf16) |
+| 模型 | 描述 | 语言 | 仓库 |
+|------|------|------|------|
+| **Whisper** | OpenAI 的强大 STT 模型 | 99+ 种语言 | [mlx-community/whisper-large-v3-turbo-asr-fp16](https://huggingface.co/mlx-community/whisper-large-v3-turbo-asr-fp16) |
+| **Qwen3-ASR** | 阿里巴巴的多语言 ASR | 中文、英文、日文、韩文等 | [mlx-community/Qwen3-ASR-1.7B-8bit](https://huggingface.co/mlx-community/Qwen3-ASR-1.7B-8bit) |
+| **Qwen3-ForcedAligner** | 词级音频对齐 | 中文、英文、日文、韩文等 | [mlx-community/Qwen3-ForcedAligner-0.6B-8bit](https://huggingface.co/mlx-community/Qwen3-ForcedAligner-0.6B-8bit) |
+| **Parakeet** | NVIDIA 的精确 STT | 英文 | [mlx-community/parakeet-tdt-0.6b-v2](https://huggingface.co/mlx-community/parakeet-tdt-0.6b-v2) |
+| **Voxtral** | Mistral 的语音模型 | 多种语言 | [mlx-community/Voxtral-Mini-3B-2507-bf16](https://huggingface.co/mlx-community/Voxtral-Mini-3B-2507-bf16) |
+| **VibeVoice-ASR** | 微软的 9B ASR，支持说话人分离和时间戳 | 多种语言 | [mlx-community/VibeVoice-ASR-bf16](https://huggingface.co/mlx-community/VibeVoice-ASR-bf16) |
 
-### Speech-to-Speech (STS)
+### 语音转语音（STS）
 
-| Model | Description | Use Case | Repo |
-|-------|-------------|----------|------|
-| **SAM-Audio** | Text-guided source separation | Extract specific sounds | [mlx-community/sam-audio-large](https://huggingface.co/mlx-community/sam-audio-large) |
-| **Liquid2.5-Audio*** | Speech-to-Speech, Text-to-Speech and Speech-to-Text | Speech interactions | [mlx-community/LFM2.5-Audio-1.5B-8bit](https://huggingface.co/mlx-community/LFM2.5-Audio-1.5B-8bit)
-| **MossFormer2 SE** | Speech enhancement | Noise removal | [starkdmi/MossFormer2_SE_48K_MLX](https://huggingface.co/starkdmi/MossFormer2_SE_48K_MLX) |
+| 模型 | 描述 | 用例 | 仓库 |
+|------|------|------|------|
+| **SAM-Audio** | 文本引导的源分离 | 提取特定声音 | [mlx-community/sam-audio-large](https://huggingface.co/mlx-community/sam-audio-large) |
+| **Liquid2.5-Audio*** | 语音转语音、文本转语音和语音转文本 | 语音交互 | [mlx-community/LFM2.5-Audio-1.5B-8bit](https://huggingface.co/mlx-community/LFM2.5-Audio-1.5B-8bit)
+| **MossFormer2 SE** | 语音增强 | 噪声去除 | [starkdmi/MossFormer2_SE_48K_MLX](https://huggingface.co/starkdmi/MossFormer2_SE_48K_MLX) |
 
-## Model Examples
+## 模型示例
 
 ### Kokoro TTS
 
-Kokoro is a fast, multilingual TTS model with 54 voice presets.
+Kokoro 是一个快速的多语言 TTS 模型，带有 54 种语音预设。
 
 ```python
 from mlx_audio.tts.utils import load_model
 
 model = load_model("mlx-community/Kokoro-82M-bf16")
 
-# Generate with different voices
+# 使用不同语音生成
 for result in model.generate(
-    text="Welcome to MLX-Audio!",
-    voice="af_heart",  # American female
+    text="欢迎使用 MLX-Audio！",
+    voice="af_heart",  # 美国女性
     speed=1.0,
-    lang_code="a"  # American English
+    lang_code="a"  # 美式英语
 ):
     audio = result.audio
 ```
 
-**Available Voices:**
-- American English: `af_heart`, `af_bella`, `af_nova`, `af_sky`, `am_adam`, `am_echo`, etc.
-- British English: `bf_alice`, `bf_emma`, `bm_daniel`, `bm_george`, etc.
-- Japanese: `jf_alpha`, `jm_kumo`, etc.
-- Chinese: `zf_xiaobei`, `zm_yunxi`, etc.
+**可用语音：**
+- 美式英语：`af_heart`、`af_bella`、`af_nova`、`af_sky`、`am_adam`、`am_echo` 等
+- 英式英语：`bf_alice`、`bf_emma`、`bm_daniel`、`bm_george` 等
+- 日语：`jf_alpha`、`jm_kumo` 等
+- 中文：`zf_xiaobei`、`zm_yunxi` 等
 
-**Language Codes:**
-| Code | Language | Note |
-|------|----------|------|
-| `a` | American English | Default |
-| `b` | British English | |
-| `j` | Japanese | Requires `pip install misaki[ja]` |
-| `z` | Mandarin Chinese | Requires `pip install misaki[zh]` |
-| `e` | Spanish | |
-| `f` | French | |
+**语言代码：**
+| 代码 | 语言 | 说明 |
+|------|------|------|
+| `a` | 美式英语 | 默认 |
+| `b` | 英式英语 | |
+| `j` | 日语 | 需要 `pip install misaki[ja]` |
+| `z` | 中文普通话 | 需要 `pip install misaki[zh]` |
+| `e` | 西班牙语 | |
+| `f` | 法语 | |
 
 ### Qwen3-TTS
 
-Alibaba's state-of-the-art multilingual TTS with voice cloning, emotion control, and voice design capabilities.
+阿里巴巴的最先进多语言 TTS，支持语音克隆、情感控制和语音设计功能。
 
 ```python
 from mlx_audio.tts.utils import load_model
 
 model = load_model("mlx-community/Qwen3-TTS-12Hz-0.6B-Base-bf16")
 results = list(model.generate(
-    text="Hello, welcome to MLX-Audio!",
+    text="你好，欢迎使用 MLX-Audio！",
     voice="Chelsie",
     language="English",
 ))
@@ -160,16 +160,16 @@ results = list(model.generate(
 audio = results[0].audio  # mx.array
 ```
 
-See the [Qwen3-TTS README](mlx_audio/tts/models/qwen3_tts/README.md) for voice cloning, CustomVoice, VoiceDesign, and all available models.
+有关语音克隆、CustomVoice、VoiceDesign 和所有可用模型，请参阅 [Qwen3-TTS README](mlx_audio/tts/models/qwen3_tts/README.md)。
 
-### CSM (Voice Cloning)
+### CSM（语音克隆）
 
-Clone any voice using a reference audio sample:
+使用参考音频样本克隆任何语音：
 
 ```bash
 mlx_audio.tts.generate \
     --model mlx-community/csm-1b \
-    --text "Hello from Sesame." \
+    --text "来自芝麻街的问候。" \
     --ref_audio ./reference_voice.wav \
     --play
 ```
@@ -186,56 +186,56 @@ result = generate_transcription(
 print(result.text)
 ```
 
-### Qwen3-ASR & ForcedAligner
+### Qwen3-ASR 和 ForcedAligner
 
-Alibaba's multilingual speech models for transcription and word-level alignment.
+阿里巴巴的多语言语音模型，用于转录和词级对齐。
 
 ```python
 from mlx_audio.stt import load
 
-# Speech recognition
+# 语音识别
 model = load("mlx-community/Qwen3-ASR-0.6B-8bit")
 result = model.generate("audio.wav", language="English")
 print(result.text)
 
-# Word-level forced alignment
+# 词级强制对齐
 aligner = load("mlx-community/Qwen3-ForcedAligner-0.6B-8bit")
 result = aligner.generate("audio.wav", text="I have a dream", language="English")
 for item in result:
     print(f"[{item.start_time:.2f}s - {item.end_time:.2f}s] {item.text}")
 ```
 
-See the [Qwen3-ASR README](mlx_audio/stt/models/qwen3_asr/README.md) for CLI usage, all models, and more examples.
+有关 CLI 使用、所有模型和更多示例，请参阅 [Qwen3-ASR README](mlx_audio/stt/models/qwen3_asr/README.md)。
 
 ### VibeVoice-ASR
 
-Microsoft's 9B parameter speech-to-text model with speaker diarization and timestamps. Supports long-form audio (up to 60 minutes) and outputs structured JSON.
+微软的 9B 参数语音转文本模型，支持说话人分离和时间戳。支持长音频（最长 60 分钟）并输出结构化 JSON。
 
 ```python
 from mlx_audio.stt.utils import load
 
 model = load("mlx-community/VibeVoice-ASR-bf16")
 
-# Basic transcription
+# 基本转录
 result = model.generate(audio="meeting.wav", max_tokens=8192, temperature=0.0)
 print(result.text)
-# [{"Start":0,"End":5.2,"Speaker":0,"Content":"Hello everyone, let's begin."},
-#  {"Start":5.5,"End":9.8,"Speaker":1,"Content":"Thanks for joining today."}]
+# [{"Start":0,"End":5.2,"Speaker":0,"Content":"大家好，我们开始吧。"},
+#  {"Start":5.5,"End":9.8,"Speaker":1,"Content":"感谢今天的参与。"}]
 
-# Access parsed segments
+# 访问解析后的片段
 for seg in result.segments:
-    print(f"[{seg['start_time']:.1f}-{seg['end_time']:.1f}] Speaker {seg['speaker_id']}: {seg['text']}")
+    print(f"[{seg['start_time']:.1f}-{seg['end_time']:.1f}] 说话人 {seg['speaker_id']}: {seg['text']}")
 ```
 
-**Streaming transcription:**
+**流式转录：**
 
 ```python
-# Stream tokens as they are generated
+# 生成时流式输出标记
 for text in model.stream_transcribe(audio="speech.wav", max_tokens=4096):
     print(text, end="", flush=True)
 ```
 
-**With context (hotwords/metadata):**
+**带上下文（热词/元数据）：**
 
 ```python
 result = model.generate(
@@ -246,10 +246,10 @@ result = model.generate(
 )
 ```
 
-**CLI usage:**
+**CLI 使用：**
 
 ```bash
-# Basic transcription
+# 基本转录
 python -m mlx_audio.stt.generate \
     --model mlx-community/VibeVoice-ASR-bf16 \
     --audio meeting.wav \
@@ -258,7 +258,7 @@ python -m mlx_audio.stt.generate \
     --max-tokens 8192 \
     --verbose
 
-# With context/hotwords
+# 带上下文/热词
 python -m mlx_audio.stt.generate \
     --model mlx-community/VibeVoice-ASR-bf16 \
     --audio technical_talk.wav \
@@ -269,9 +269,9 @@ python -m mlx_audio.stt.generate \
     --verbose
 ```
 
-### SAM-Audio (Source Separation)
+### SAM-Audio（源分离）
 
-Separate specific sounds from audio using text prompts:
+使用文本提示从音频中分离特定声音：
 
 ```python
 from mlx_audio.sts import SAMAudio, SAMAudioProcessor, save_audio
@@ -280,7 +280,7 @@ model = SAMAudio.from_pretrained("mlx-community/sam-audio-large")
 processor = SAMAudioProcessor.from_pretrained("mlx-community/sam-audio-large")
 
 batch = processor(
-    descriptions=["A person speaking"],
+    descriptions=["一个人在说话"],
     audios=["mixed_audio.wav"],
 )
 
@@ -297,9 +297,9 @@ save_audio(result.target[0], "voice.wav")
 save_audio(result.residual[0], "background.wav")
 ```
 
-### MossFormer2 (Speech Enhancement)
+### MossFormer2（语音增强）
 
-Remove noise from speech recordings:
+从语音录音中去除噪声：
 
 ```python
 from mlx_audio.sts import MossFormer2SEModel, save_audio
@@ -309,100 +309,100 @@ enhanced = model.enhance("noisy_speech.wav")
 save_audio(enhanced, "clean.wav", 48000)
 ```
 
-## Web Interface & API Server
+## Web 界面和 API 服务器
 
-MLX-Audio includes a modern web interface and OpenAI-compatible API.
+MLX-Audio 包含现代化的 Web 界面和兼容 OpenAI 的 API。
 
-### Starting the Server
+### 启动服务器
 
 ```bash
-# Start API server
+# 启动 API 服务器
 mlx_audio.server --host 0.0.0.0 --port 8000
 
-# Start web UI (in another terminal)
+# 启动 Web UI（在另一个终端）
 cd mlx_audio/ui
 npm install && npm run dev
 ```
 
-### API Endpoints
+### API 端点
 
-**Text-to-Speech** (OpenAI-compatible):
+**文本转语音**（兼容 OpenAI）：
 ```bash
 curl -X POST http://localhost:8000/v1/audio/speech \
   -H "Content-Type: application/json" \
-  -d '{"model": "mlx-community/Kokoro-82M-bf16", "input": "Hello!", "voice": "af_heart"}' \
+  -d '{"model": "mlx-community/Kokoro-82M-bf16", "input": "你好！", "voice": "af_heart"}' \
   --output speech.wav
 ```
 
-**Speech-to-Text**:
+**语音转文本**：
 ```bash
 curl -X POST http://localhost:8000/v1/audio/transcriptions \
   -F "file=@audio.wav" \
   -F "model=mlx-community/whisper-large-v3-turbo-asr-fp16"
 ```
 
-## Quantization
+## 量化
 
-Reduce model size and improve performance with quantization using the convert script:
+使用转换脚本通过量化减小模型大小并提高性能：
 
 ```bash
-# Convert and quantize to 4-bit
+# 转换并量化为 4 位
 python -m mlx_audio.convert \
     --hf-path prince-canuma/Kokoro-82M \
     --mlx-path ./Kokoro-82M-4bit \
     --quantize \
     --q-bits 4 \
-    --upload-repo username/Kokoro-82M-4bit (optional: if you want to upload the model to Hugging Face)
+    --upload-repo username/Kokoro-82M-4bit (可选：如果要将模型上传到 Hugging Face)
 
-# Convert with specific dtype (bfloat16)
+# 使用特定数据类型转换（bfloat16）
 python -m mlx_audio.convert \
     --hf-path prince-canuma/Kokoro-82M \
     --mlx-path ./Kokoro-82M-bf16 \
     --dtype bfloat16 \
-    --upload-repo username/Kokoro-82M-bf16 (optional: if you want to upload the model to Hugging Face)
+    --upload-repo username/Kokoro-82M-bf16 (可选：如果要将模型上传到 Hugging Face)
 ```
 
-**Options:**
-| Flag | Description |
-|------|-------------|
-| `--hf-path` | Source Hugging Face model or local path |
-| `--mlx-path` | Output directory for converted model |
-| `-q, --quantize` | Enable quantization |
-| `--q-bits` | Bits per weight (4, 6, or 8) |
-| `--q-group-size` | Group size for quantization (default: 64) |
-| `--dtype` | Weight dtype: `float16`, `bfloat16`, `float32` |
-| `--upload-repo` | Upload converted model to HF Hub |
+**选项：**
+| 标志 | 描述 |
+|------|------|
+| `--hf-path` | 源 Hugging Face 模型或本地路径 |
+| `--mlx-path` | 转换后模型的输出目录 |
+| `-q, --quantize` | 启用量化 |
+| `--q-bits` | 每权重位数（4、6 或 8） |
+| `--q-group-size` | 量化的组大小（默认：64） |
+| `--dtype` | 权重数据类型：`float16`、`bfloat16`、`float32` |
+| `--upload-repo` | 将转换后的模型上传到 HF Hub |
 
 ## Swift
 
-Looking for Swift/iOS support? Check out [mlx-audio-swift](https://github.com/Blaizzy/mlx-audio-swift) for on-device TTS using MLX on macOS and iOS.
+寻找 Swift/iOS 支持？查看 [mlx-audio-swift](https://github.com/Blaizzy/mlx-audio-swift)，用于在 macOS 和 iOS 上使用 MLX 进行设备端 TTS。
 
-## Requirements
+## 要求
 
 - Python 3.10+
-- Apple Silicon Mac (M1/M2/M3/M4)
-- MLX framework
-- **ffmpeg** (required for MP3/FLAC audio encoding)
+- Apple Silicon Mac（M1/M2/M3/M4）
+- MLX 框架
+- **ffmpeg**（保存 MP3/FLAC 音频格式所需）
 
-### Installing ffmpeg
+### 安装 ffmpeg
 
-ffmpeg is required for saving audio in MP3 or FLAC format. Install it using:
+保存 MP3 或 FLAC 格式的音频需要 ffmpeg。使用以下命令安装：
 
 ```bash
-# macOS (using Homebrew)
+# macOS（使用 Homebrew）
 brew install ffmpeg
 
 # Ubuntu/Debian
 sudo apt install ffmpeg
 ```
 
-WAV format works without ffmpeg.
+WAV 格式无需 ffmpeg 即可工作。
 
-## License
+## 许可证
 
-[MIT License](LICENSE)
+[MIT 许可证](LICENSE)
 
-## Citation
+## 引用
 
 ```bibtex
 @misc{mlx-audio,
@@ -410,10 +410,10 @@ WAV format works without ffmpeg.
   title = {MLX Audio},
   year = {2025},
   howpublished = {\url{https://github.com/Blaizzy/mlx-audio}},
-  note = {Audio processing library for Apple Silicon with TTS, STT, and STS capabilities.}
+  note = {用于 Apple Silicon 的音频处理库，具有 TTS、STT 和 STS 功能。}
 }
 ```
 
-## Acknowledgements
+## 致谢
 
-- [Apple MLX Team](https://github.com/ml-explore/mlx) for the MLX framework
+- [Apple MLX 团队](https://github.com/ml-explore/mlx) 提供 MLX 框架
