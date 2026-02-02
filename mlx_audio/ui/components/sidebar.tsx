@@ -21,7 +21,7 @@ export function Sidebar({ activePage = "home" }: SidebarProps) {
           }`}
         >
           <FileAudio className="h-5 w-5" />
-          <span>Text to Speech</span>
+          <span>文本转语音</span>
         </Link>
 
         <Link
@@ -33,7 +33,7 @@ export function Sidebar({ activePage = "home" }: SidebarProps) {
           }`}
         >
           <FileText className="h-5 w-5" />
-          <span>Speech to Text</span>
+          <span>语音转文本</span>
         </Link>
 
 

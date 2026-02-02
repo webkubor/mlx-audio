@@ -164,20 +164,21 @@ export default function SpeechToTextPage() {
       <div className="flex-1 overflow-auto p-6">
         <div className="flex justify-between items-center mb-6">
           <div>
-            <h1 className="text-2xl font-bold">Speech to text</h1>
+            <h1 className="text-2xl font-bold">语音转文本</h1>
             <p className="text-gray-500 dark:text-gray-400 mt-1">
-              Transcribe audio and video files with our{" "}
-              <span className="text-gray-700 dark:text-gray-300 hover:underline cursor-pointer">
-                industry-leading ASR model
+              使用我们{
+                " "
+              }<span className="text-gray-700 dark:text-gray-300 hover:underline cursor-pointer">
+                行业领先的ASR模型
               </span>
-              .
+              转录音频和视频文件。
             </p>
           </div>
           <div className="flex items-center space-x-3">
             <Link href="/speech-to-text/realtime">
               <button className="flex items-center space-x-2 bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-lg transition-colors">
                 <Mic className="h-5 w-5" />
-                <span>Realtime Transcription</span>
+                <span>实时转录</span>
               </button>
             </Link>
             <button
@@ -185,7 +186,7 @@ export default function SpeechToTextPage() {
               className="flex items-center space-x-2 bg-black dark:bg-white text-white dark:text-black px-4 py-2 rounded-lg hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors"
             >
               <FileText className="h-5 w-5" />
-              <span>Transcribe files</span>
+              <span>转录文件</span>
             </button>
           </div>
         </div>
@@ -205,23 +206,23 @@ export default function SpeechToTextPage() {
                     <div>
                       <h3 className="font-medium">{file.name}</h3>
                       {file.status === "uploading" && (
-                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Uploading...</p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">上传中...</p>
                       )}
                       {file.status === "processing" && (
-                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Processing...</p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">处理中...</p>
                       )}
                       {file.status === "completed" && (
-                        <p className="text-xs text-green-500 dark:text-green-400 mt-1">Completed</p>
+                        <p className="text-xs text-green-500 dark:text-green-400 mt-1">已完成</p>
                       )}
                       {file.status === "failed" && (
-                        <p className="text-xs text-red-500 dark:text-red-400 mt-1">Failed</p>
+                        <p className="text-xs text-red-500 dark:text-red-400 mt-1">失败</p>
                       )}
                     </div>
                   </div>
                   <div className="flex items-center">
                     {file.status === "completed" && (
                       <Link href={`/speech-to-text/${file.id}`}>
-                        <button className="text-sky-500 hover:text-sky-600 text-sm mr-4">View transcript</button>
+                        <button className="text-sky-500 hover:text-sky-600 text-sm mr-4">查看转录</button>
                       </Link>
                     )}
                     <div className="relative group">
@@ -233,10 +234,10 @@ export default function SpeechToTextPage() {
                           {file.status === "completed" && (
                             <>
                               <button className="flex items-center w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
-                                Download transcript
+                                下载转录
                               </button>
                               <button className="flex items-center w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
-                                Copy to clipboard
+                                复制到剪贴板
                               </button>
                             </>
                           )}
@@ -244,7 +245,7 @@ export default function SpeechToTextPage() {
                             className="flex items-center w-full px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700"
                             onClick={() => deleteFile(file.id)}
                           >
-                            Delete
+                            删除
                           </button>
                         </div>
                       </div>
@@ -258,23 +259,22 @@ export default function SpeechToTextPage() {
               <div className="mx-auto w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mb-4">
                 <FileText className="h-8 w-8 text-gray-400" />
               </div>
-              <h3 className="text-lg font-medium mb-2">No transcriptions yet</h3>
+              <h3 className="text-lg font-medium mb-2">暂无转录</h3>
               <p className="text-gray-500 dark:text-gray-400 mb-6 max-w-md mx-auto">
-                Upload audio or video files to transcribe them into text using our advanced speech recognition
-                technology.
+                上传音频或视频文件，使用我们先进的语音识别技术将其转录为文本。
               </p>
               <button
                 onClick={() => setIsModalOpen(true)}
                 className="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-md transition-colors"
               >
-                Transcribe your first file
+                转录您的第一个文件
               </button>
             </div>
           )}
         </div>
       </div>
 
-      {/* Transcribe Files Modal */}
+      {/* 转录文件模态框 */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
           <div className="relative w-full max-w-2xl bg-white dark:bg-gray-900 rounded-xl p-6">
@@ -285,7 +285,7 @@ export default function SpeechToTextPage() {
               <X className="h-6 w-6" />
             </button>
 
-            <h2 className="text-2xl font-bold mb-6">Transcribe files</h2>
+            <h2 className="text-2xl font-bold mb-6">转录文件</h2>
 
             <div
               className={`border ${
@@ -300,8 +300,8 @@ export default function SpeechToTextPage() {
                 <div className="mb-4 p-3 bg-gray-100 dark:bg-gray-800 rounded-full">
                   <Upload className="h-6 w-6 text-gray-500 dark:text-gray-400" />
                 </div>
-                <h3 className="text-lg font-medium mb-2">Click to upload, or drag and drop</h3>
-                <p className="text-gray-500 dark:text-gray-400 mb-2">Audio or video files, up to 1000MB each</p>
+                <h3 className="text-lg font-medium mb-2">点击上传，或拖放文件</h3>
+                <p className="text-gray-500 dark:text-gray-400 mb-2">音频或视频文件，每个最大1000MB</p>
                 <input
                   type="file"
                   ref={fileInputRef}
@@ -315,7 +315,7 @@ export default function SpeechToTextPage() {
 
             <div className="mb-6">
               <div className="flex justify-between items-center mb-2">
-                <label className="block text-sm font-medium">Primary language</label>
+                <label className="block text-sm font-medium">主要语言</label>
               </div>
               <div className="relative">
                 <select
@@ -323,16 +323,16 @@ export default function SpeechToTextPage() {
                   onChange={(e) => setPrimaryLanguage(e.target.value)}
                   className="w-full appearance-none rounded-lg border border-gray-200 dark:border-gray-700 px-4 py-2.5 pr-10 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-sky-500"
                 >
-                  <option value="Detect">Detect</option>
-                  <option value="English">English</option>
-                  <option value="Spanish">Spanish</option>
-                  <option value="French">French</option>
-                  <option value="German">German</option>
-                  <option value="Italian">Italian</option>
-                  <option value="Portuguese">Portuguese</option>
-                  <option value="Chinese">Chinese</option>
-                  <option value="Japanese">Japanese</option>
-                  <option value="Korean">Korean</option>
+                  <option value="Detect">自动检测</option>
+                  <option value="English">英语</option>
+                  <option value="Spanish">西班牙语</option>
+                  <option value="French">法语</option>
+                  <option value="German">德语</option>
+                  <option value="Italian">意大利语</option>
+                  <option value="Portuguese">葡萄牙语</option>
+                  <option value="Chinese">中文</option>
+                  <option value="Japanese">日语</option>
+                  <option value="Korean">韩语</option>
                 </select>
                 <ChevronDown className="absolute right-3 top-3 h-5 w-5 text-gray-400 pointer-events-none" />
               </div>
@@ -340,20 +340,20 @@ export default function SpeechToTextPage() {
 
             <div className="mb-6">
               <div className="flex justify-between items-center mb-2">
-                <label className="block text-sm font-medium">Model</label>
+                <label className="block text-sm font-medium">模型</label>
               </div>
               <input
                 type="text"
                 value={selectedModel}
                 onChange={(e) => setSelectedModel(e.target.value)}
-                placeholder="Enter model name"
+                placeholder="输入模型名称"
                 className="w-full rounded-lg border border-gray-200 dark:border-gray-700 px-4 py-2.5 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-sky-500"
               />
             </div>
 
             <div className="mb-6">
               <div className="flex justify-between items-center">
-                <label className="block text-sm font-medium">Tag audio events</label>
+                <label className="block text-sm font-medium">标记音频事件</label>
                 <div className="relative inline-block w-12 h-6 transition duration-200 ease-in-out">
                   <input
                     type="checkbox"
@@ -384,7 +384,7 @@ export default function SpeechToTextPage() {
                 className="flex items-center space-x-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 px-6 py-3 rounded-lg transition-colors"
               >
                 <Upload className="h-5 w-5 mr-2" />
-                Upload files
+                上传文件
               </button>
             </div>
           </div>

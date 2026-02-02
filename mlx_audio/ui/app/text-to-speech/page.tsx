@@ -210,22 +210,22 @@ export default function SpeechSynthesis() {
   return (
     <LayoutWrapper activeTab="audio" activePage="text-to-speech">
       <div className="flex flex-1 overflow-hidden">
-        {/* Text Input Area */}
+        {/* 文本输入区域 */}
         <div className="flex-1 overflow-auto border-r border-gray-200 dark:border-gray-700 p-6">
-          <h1 className="mb-6 text-2xl font-bold">Speech Synthesis</h1>
+          <h1 className="mb-6 text-2xl font-bold">语音合成</h1>
           <textarea
             className="min-h-[200px] w-full resize-none rounded-md border border-gray-200 dark:border-gray-700 p-4 text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 focus:border-blue-500 focus:outline-none"
             value={text}
             onChange={handleTextChange}
-            placeholder="Enter text to convert to speech..."
+            placeholder="输入要转换为语音的文本..."
           />
           <div className="mt-auto flex items-center justify-between pt-4 text-xs text-gray-500 dark:text-gray-400">
             <div className="flex items-center space-x-2">
-              <span>Long Text</span>
+              <span>长文本</span>
               <div className="h-2 w-2 rounded-full bg-gray-400 dark:bg-gray-500"></div>
             </div>
             <div className="flex items-center space-x-2">
-              <span>{getCharacterCount()} / 5,000 characters</span>
+              <span>{getCharacterCount()} / 5,000 字符</span>
               <div className="h-2 w-2 rounded-full bg-gray-200 dark:bg-gray-600"></div>
             </div>
           </div>
@@ -236,6 +236,20 @@ export default function SpeechSynthesis() {
                   <span>{language}</span>
                   <ChevronDown className="h-3 w-3" />
                 </button>
+                <div className="absolute left-0 mt-1 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg border border-gray-200 dark:border-gray-700 z-10">
+                  <button 
+                    onClick={() => setLanguage("Chinese-detected")} 
+                    className="w-full text-left px-4 py-2 text-xs hover:bg-gray-100 dark:hover:bg-gray-700"
+                  >
+                    中文（自动检测）
+                  </button>
+                  <button 
+                    onClick={() => setLanguage("English-detected")} 
+                    className="w-full text-left px-4 py-2 text-xs hover:bg-gray-100 dark:hover:bg-gray-700"
+                  >
+                    英语（自动检测）
+                  </button>
+                </div>
               </div>
               <button
                 className="rounded-md border border-gray-200 dark:border-gray-700 p-1 hover:bg-gray-50 dark:hover:bg-gray-800"
@@ -253,12 +267,12 @@ export default function SpeechSynthesis() {
                 {isGenerating ? (
                   <>
                     <RefreshCw className="h-4 w-4 mr-1 animate-spin" />
-                    Generating...
+                    生成中...
                   </>
                 ) : (
                   <>
                     <RefreshCw className="h-4 w-4 mr-1" />
-                    Generate
+                    生成
                   </>
                 )}
               </button>
@@ -266,20 +280,20 @@ export default function SpeechSynthesis() {
           </div>
         </div>
 
-        {/* Settings Panel */}
+        {/* 设置面板 */}
         <div className="w-80 overflow-auto p-4 bg-white dark:bg-gray-900">
           <div className="mb-4 flex space-x-4 border-b border-gray-200 dark:border-gray-700 pb-2">
             <button
               className={`pb-2 text-sm ${activeTab === "settings" ? "border-b-2 border-black dark:border-white font-medium" : "text-gray-500 dark:text-gray-400"}`}
               onClick={() => setActiveTab("settings")}
             >
-              Settings
+              设置
             </button>
             <button
               className={`pb-2 text-sm ${activeTab === "history" ? "border-b-2 border-black dark:border-white font-medium" : "text-gray-500 dark:text-gray-400"}`}
               onClick={() => setActiveTab("history")}
             >
-              History
+              历史记录
             </button>
           </div>
 
@@ -287,7 +301,7 @@ export default function SpeechSynthesis() {
             <>
               <div className="mb-6">
                 <div className="mb-2 flex items-center justify-between">
-                  <span className="text-sm">Model</span>
+                  <span className="text-sm">模型</span>
                   <div className="relative">
                     <select
                       className="flex w-40 appearance-none items-center justify-between rounded-md border border-gray-200 dark:border-gray-700 px-2 py-1 text-sm pr-8 bg-white dark:bg-gray-800"
@@ -308,7 +322,7 @@ export default function SpeechSynthesis() {
               {isMarvisModel(baseModel) && (
                 <div className="mb-6">
                   <div className="mb-2 flex items-center justify-between">
-                    <span className="text-sm">Quantization</span>
+                    <span className="text-sm">量化</span>
                     <div className="relative">
                       <select
                         className="flex w-40 appearance-none items-center justify-between rounded-md border border-gray-200 dark:border-gray-700 px-2 py-1 text-sm pr-8 bg-white dark:bg-gray-800"
@@ -317,7 +331,7 @@ export default function SpeechSynthesis() {
                       >
                         {getAvailableQuantizations(baseModel).map((quant) => (
                           <option key={quant} value={quant}>
-                            {quant === "none" ? "None (bf16)" : quant.replace("bit", "-bit")}
+                            {quant === "none" ? "无 (bf16)" : quant.replace("bit", "-位")}
                           </option>
                         ))}
                       </select>
@@ -329,7 +343,7 @@ export default function SpeechSynthesis() {
 
               <div className="mb-6">
                 <div className="text-xs text-gray-500 dark:text-gray-400">
-                  <span className="font-medium">Selected Model:</span> <span className="font-mono">{model}</span>
+                  <span className="font-medium">选中模型:</span> <span className="font-mono">{model}</span>
                 </div>
               </div>
 
@@ -337,7 +351,7 @@ export default function SpeechSynthesis() {
 
               <div className="mb-6">
                 <div className="mb-2 flex items-center justify-between">
-                  <span className="text-sm">Speed</span>
+                  <span className="text-sm">语速</span>
                   <div className="flex items-center">
                     <div className="flex space-x-2 mr-2">
                       <button
@@ -363,41 +377,41 @@ export default function SpeechSynthesis() {
                   </div>
                 </div>
                 <div className="flex items-center">
-                  <span className="text-xs text-gray-500 mr-2">Slow</span>
+                  <span className="text-xs text-gray-500 mr-2">慢</span>
                   <RangeInput
                     min={0.5}
                     max={2}
                     step={0.1}
                     value={speed}
                     onChange={(e) => setSpeed(Number.parseFloat(e.target.value))}
-                    ariaLabel="Speed control"
+                    ariaLabel="语速控制"
                   />
-                  <span className="text-xs text-gray-500 ml-2">Fast</span>
+                  <span className="text-xs text-gray-500 ml-2">快</span>
                 </div>
               </div>
 
               <div className="mb-6">
                 <div className="mb-2 flex items-center justify-between">
-                  <span className="text-sm">Pitch</span>
+                  <span className="text-sm">音调</span>
                   <div className="flex items-center">
                     <div className="flex space-x-2 mr-2">
                       <button
                         onClick={() => setPitch(-5)}
                         className={`px-2 py-0.5 text-xs rounded-md ${pitch === -5 ? "bg-sky-100 dark:bg-sky-900 text-sky-600 dark:text-sky-300" : "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300"}`}
                       >
-                        Low
+                        低
                       </button>
                       <button
                         onClick={() => setPitch(0)}
                         className={`px-2 py-0.5 text-xs rounded-md ${pitch === 0 ? "bg-sky-100 dark:bg-sky-900 text-sky-600 dark:text-sky-300" : "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300"}`}
                       >
-                        Normal
+                        正常
                       </button>
                       <button
                         onClick={() => setPitch(5)}
                         className={`px-2 py-0.5 text-xs rounded-md ${pitch === 5 ? "bg-sky-100 dark:bg-sky-900 text-sky-600 dark:text-sky-300" : "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300"}`}
                       >
-                        High
+                        高
                       </button>
                     </div>
                     <span className="text-sm font-medium">{pitch}</span>
@@ -411,7 +425,7 @@ export default function SpeechSynthesis() {
                     step={1}
                     value={pitch}
                     onChange={(e) => setPitch(Number.parseInt(e.target.value))}
-                    ariaLabel="Pitch control"
+                    ariaLabel="音调控制"
                   />
                   <span className="text-xs text-gray-500 ml-2">+10</span>
                 </div>
@@ -419,26 +433,26 @@ export default function SpeechSynthesis() {
 
               <div className="mb-4">
                 <div className="mb-2 flex items-center justify-between">
-                  <span className="text-sm">Volume</span>
+                  <span className="text-sm">音量</span>
                   <div className="flex items-center">
                     <div className="flex space-x-2 mr-2">
                       <button
                         onClick={() => setVolume(0.5)}
                         className={`px-2 py-0.5 text-xs rounded-md ${volume === 0.5 ? "bg-sky-100 dark:bg-sky-900 text-sky-600 dark:text-sky-300" : "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300"}`}
                       >
-                        Quiet
+                        安静
                       </button>
                       <button
                         onClick={() => setVolume(1)}
                         className={`px-2 py-0.5 text-xs rounded-md ${volume === 1 ? "bg-sky-100 dark:bg-sky-900 text-sky-600 dark:text-sky-300" : "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300"}`}
                       >
-                        Normal
+                        正常
                       </button>
                       <button
                         onClick={() => setVolume(1.5)}
                         className={`px-2 py-0.5 text-xs rounded-md ${volume === 1.5 ? "bg-sky-100 dark:bg-sky-900 text-sky-600 dark:text-sky-300" : "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300"}`}
                       >
-                        Loud
+                        响亮
                       </button>
                     </div>
                     <span className="text-sm font-medium">{volume}x</span>
@@ -452,7 +466,7 @@ export default function SpeechSynthesis() {
                     step={0.1}
                     value={volume}
                     onChange={(e) => setVolume(Number.parseFloat(e.target.value))}
-                    ariaLabel="Volume control"
+                    ariaLabel="音量控制"
                   />
                   <span className="text-xs text-gray-500 ml-2">2</span>
                 </div>
@@ -460,7 +474,7 @@ export default function SpeechSynthesis() {
             </>
           ) : (
             <div className="py-4 text-center text-sm text-gray-500 dark:text-gray-400">
-              <p>No history available</p>
+              <p>暂无历史记录</p>
             </div>
           )}
         </div>
@@ -482,7 +496,7 @@ export default function SpeechSynthesis() {
                 {selectedVoice}: {text.length > 20 ? text.substring(0, 20) + "..." : text}
               </div>
               <div className="flex items-center space-x-2">
-                <div className="text-xs text-gray-500 dark:text-gray-400 mr-2">How did this sound?</div>
+                <div className="text-xs text-gray-500 dark:text-gray-400 mr-2">这个声音怎么样？</div>
                 <button
                   className="rounded-md border border-gray-200 dark:border-gray-700 p-1 hover:bg-gray-50 dark:hover:bg-gray-800"
                   onClick={() => handleFeedback(true)}

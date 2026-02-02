@@ -283,25 +283,25 @@ export default function RealtimeTranscriptionPage() {
             </button>
           </Link>
           <div>
-            <h1 className="text-2xl font-bold">Realtime Transcription</h1>
+            <h1 className="text-2xl font-bold">实时转录</h1>
             <p className="text-gray-500 dark:text-gray-400 mt-1">
-              Experience realtime speech transcription with our latest model.
+              使用我们最新的模型体验实时语音转录。
             </p>
           </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
-          {/* Control Panel */}
+          {/* 控制面板 */}
           <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
-            <h2 className="text-lg font-semibold mb-2">Control Panel</h2>
+            <h2 className="text-lg font-semibold mb-2">控制面板</h2>
             <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">
-              Manage your transcription session.
+              管理您的转录会话。
             </p>
 
             <div className="space-y-6">
-              {/* Language Selection */}
+              {/* 语言选择 */}
               <div>
-                <label className="block text-sm font-medium mb-2">Language</label>
+                <label className="block text-sm font-medium mb-2">语言</label>
                 <div className="relative">
                   <select
                     value={language}
@@ -309,42 +309,42 @@ export default function RealtimeTranscriptionPage() {
                     disabled={isRecording}
                     className="w-full appearance-none rounded-lg border border-gray-200 dark:border-gray-700 px-4 py-2.5 pr-10 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-sky-500 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    <option value="Detect">Detect</option>
-                    <option value="English">English</option>
-                    <option value="Spanish">Spanish</option>
-                    <option value="French">French</option>
-                    <option value="German">German</option>
-                    <option value="Italian">Italian</option>
-                    <option value="Portuguese">Portuguese</option>
-                    <option value="Chinese">Chinese</option>
-                    <option value="Japanese">Japanese</option>
-                    <option value="Korean">Korean</option>
+                    <option value="Detect">自动检测</option>
+                    <option value="English">英语</option>
+                    <option value="Spanish">西班牙语</option>
+                    <option value="French">法语</option>
+                    <option value="German">德语</option>
+                    <option value="Italian">意大利语</option>
+                    <option value="Portuguese">葡萄牙语</option>
+                    <option value="Chinese">中文</option>
+                    <option value="Japanese">日语</option>
+                    <option value="Korean">韩语</option>
                   </select>
                   <ChevronDown className="absolute right-3 top-3 h-5 w-5 text-gray-400 pointer-events-none" />
                 </div>
               </div>
 
-              {/* Model Selection */}
+              {/* 模型选择 */}
               <div>
-                <label className="block text-sm font-medium mb-2">Model</label>
+                <label className="block text-sm font-medium mb-2">模型</label>
                 <input
                   type="text"
                   value={selectedModel}
                   onChange={(e) => setSelectedModel(e.target.value)}
                   disabled={isRecording}
-                  placeholder="Enter model name"
+                  placeholder="输入模型名称"
                   className="w-full rounded-lg border border-gray-200 dark:border-gray-700 px-4 py-2.5 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-sky-500 disabled:opacity-50 disabled:cursor-not-allowed"
                 />
               </div>
 
-              {/* Error Display */}
+              {/* 错误显示 */}
               {error && (
                 <div className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
                   <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
                 </div>
               )}
 
-              {/* Control Button */}
+              {/* 控制按钮 */}
               <div className="pt-4">
                 {!isRecording ? (
                   <button
@@ -353,7 +353,7 @@ export default function RealtimeTranscriptionPage() {
                     className="w-full flex items-center justify-center space-x-2 bg-sky-500 hover:bg-sky-600 text-white px-6 py-3 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <Mic className="h-5 w-5" />
-                    <span>{status === "connecting" ? "Connecting..." : "Start Transcribing"}</span>
+                    <span>{status === "connecting" ? "连接中..." : "开始转录"}</span>
                   </button>
                 ) : (
                   <button
@@ -361,17 +361,17 @@ export default function RealtimeTranscriptionPage() {
                     className="w-full flex items-center justify-center space-x-2 bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-lg transition-colors"
                   >
                     <MicOff className="h-5 w-5" />
-                    <span>Stop</span>
+                    <span>停止</span>
                   </button>
                 )}
               </div>
             </div>
           </div>
 
-          {/* Live Transcript */}
+          {/* 实时转录 */}
           <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6 flex flex-col">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold">Live Transcript</h2>
+              <h2 className="text-lg font-semibold">实时转录</h2>
               {isRecording && (
                 <div className="flex items-center space-x-2">
                   <div className={`w-2 h-2 rounded-full animate-pulse ${
@@ -380,7 +380,7 @@ export default function RealtimeTranscriptionPage() {
                   <span className={`text-sm ${
                     isSpeechDetected ? "text-green-500" : "text-red-500"
                   }`}>
-                    {isSpeechDetected ? "Speech Detected" : "Listening..."}
+                    {isSpeechDetected ? "检测到语音" : "聆听中..."}
                   </span>
                 </div>
               )}
@@ -397,10 +397,10 @@ export default function RealtimeTranscriptionPage() {
                     <Mic className="h-8 w-8 text-gray-400" />
                   </div>
                   <p className="text-gray-500 dark:text-gray-400 mb-2">
-                    Ready to transcribe your speech...
+                    准备转录您的语音...
                   </p>
                   <p className="text-sm text-gray-400 dark:text-gray-500">
-                    Click &apos;Start Transcribing&apos; to begin.
+                    点击"开始转录"开始。
                   </p>
                 </div>
               )}
@@ -412,7 +412,7 @@ export default function RealtimeTranscriptionPage() {
                   onClick={clearTranscript}
                   className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
                 >
-                  Clear
+                  清除
                 </button>
               </div>
             )}
